@@ -21,7 +21,7 @@
       "@/*": ["./src/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     },
-    "types": ["contentlayer/generated", "node"]
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
@@ -31,8 +31,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": [
-    "node_modules",
-    ".contentlayer"
-  ]
+  "exclude": ["node_modules", ".contentlayer"]
 }
