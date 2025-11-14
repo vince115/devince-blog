@@ -47,7 +47,7 @@ export default function ProjectsClient({ projects }: { projects: any[] }) {
 
                         {project.url && (
                             <Link
-                                href={project.url}
+                                href={project.url as any}
                                 rel="noopener noreferrer"
                                 className="text-pink-500 hover:underline"
                             >

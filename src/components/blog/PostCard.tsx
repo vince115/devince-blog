@@ -8,7 +8,7 @@ import type { Post } from "contentlayer/generated";
 export default function PostCard({ post }: { post: Post }) {
     return (
         <Link
-            href={post.url}
+            href={post.url as any}
             className="group flex flex-col md:flex-row justify-between items-center 
         gap-6 rounded-2xl border border-zinc-300/50 dark:border-zinc-800
         bg-white dark:bg-zinc-700/50 shadow-sm 
