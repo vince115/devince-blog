@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,10 +7,9 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 export default function Navbar() {
-    const { theme, resolvedTheme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
-    // ✅ 等待前端掛載完成再渲染，避免 Hydration mismatch
     useEffect(() => {
         const timer = setTimeout(() => setMounted(true), 0);
         return () => clearTimeout(timer);
@@ -17,9 +17,16 @@ export default function Navbar() {
 
     if (!mounted) return null;
 
-    // ✅ 使用 resolvedTheme 比 theme 更準確
     const isDark = resolvedTheme === "dark";
     const toggleTheme = () => setTheme(isDark ? "light" : "dark");
+
+    // ✅ 統一定義連結清單
+    const links = [
+        { label: "Home", href: "/" },
+        { label: "Blog", href: "/blog" },
+        { label: "Projects", href: "/projects" },
+        { label: "About", href: "/about" },
+    ];
 
     return (
         <header
@@ -36,10 +43,10 @@ export default function Navbar() {
                 </Link>
 
                 <div className="flex items-center gap-6">
-                    {["Blog", "Tags", "Projects", "About"].map((label) => (
+                    {links.map(({ label, href }) => (
                         <Link
                             key={label}
-                            href={`/${label.toLowerCase()}`}
+                            href={href as any}
                             className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                         >
                             {label}
