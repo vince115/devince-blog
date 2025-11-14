@@ -1,6 +1,8 @@
 //src/app/blog/page.tsx
 import { allPosts } from "@/../.contentlayer/generated";
 import BlogClient from "./BlogClient";
+import { Suspense } from "react";
+
 
 export const revalidate = 0;
 
@@ -13,6 +15,9 @@ export default function BlogIndex() {
     const posts = [...allPosts].sort(
         (a, b) => +new Date(b.date) - +new Date(a.date)
     );
-
-    return <BlogClient posts={posts} />;
+    return (
+        <Suspense fallback={<div className="text-center">Loading blog...</div>}>
+            <BlogClient posts={posts} />
+        </Suspense>
+    );
 }
