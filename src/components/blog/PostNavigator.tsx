@@ -14,7 +14,7 @@ export default function PostNavigator({
             <div className="flex-1 text-left">
                 {prev ? (
                     <Link
-                        href={prev.url}
+                        href={prev.url as any}
                         className="flex items-center gap-1 max-w-[260px] text-blue-600 dark:text-blue-400 hover:underline"
                         title={prev.title}
                     >
@@ -42,7 +42,7 @@ export default function PostNavigator({
             <div className="flex-1 text-right">
                 {next ? (
                     <Link
-                        href={next.url}
+                        href={next.url as any}
                         className="flex justify-end items-center gap-1 max-w-[260px] ml-auto text-blue-600 dark:text-blue-400 hover:underline"
                         title={next.title}
                     >
