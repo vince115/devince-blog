@@ -36,7 +36,7 @@ export default function Footer() {
                     {icons.map(({ href, label, Icon }) => (
                         <Link
                             key={label}
-                            href={href}
+                            href={href as any}
                             aria-label={label}
                             target={href.startsWith("http") ? "_blank" : "_self"}
                             className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-zinc-800 transition"
