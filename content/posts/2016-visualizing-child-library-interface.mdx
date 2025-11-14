@@ -1,0 +1,75 @@
+---
+title: "從圓夢繪本館談資訊視覺化介面設計： SVG + D3.js的應用"
+date: "2016-06-17 14:00"
+tags: ["Information Visualization", "D3.js", "Node.js", "UX for Children", "Web Design"]
+description: "探討如何以資訊視覺化與互動式設計技術，打造一個學齡前兒童可用的數位圖書館搜尋系統。"
+cover: /images/posts/child-library-cover.png  
+---
+<div className="flex flex-col justify-center items-center">
+    <img src="/images/posts/child-library-cover.png" className="m-0 p-0 w-[640px]" />
+    <h6 className="flex mt-0 justify-center"></h6>
+</div>
+隨著兒童數位閱讀需求增加，傳統以文字導向的搜尋介面不再適用。  
+《兒童數位圖書館資訊視覺化網站設計─以圓夢繪本資料庫為例》這篇研究，提出以 **資訊視覺化（Information Visualization）** 與 **使用者參與設計（Participatory Design）** 為核心的網站開發模式，打造學齡前兒童專用的搜尋體驗。
+
+技術上，系統採用 **MVC 架構**：  
+後端以 **Node.js + PHP Slim Framework + MySQL** 實作 **RESTful API**，以 JSON 格式傳遞繪本資料；前端則運用 **HTML5、CSS3、JavaScript、jQuery** 與 **D3.js**，將資料視覺化為互動式圖形。
+
+研究設計了三種介面模式：  
+1. **主題地圖模式** — 以生活場景（學校、家、動物園等）作為地圖節點，結合 SVG 動畫與滑鼠互動，模擬探索遊戲。 
+<div className="flex flex-col justify-center items-center">
+    <img src="/images/posts/child-library-map.png" className="m-0 p-0 w-[480px]" />
+    <h6 className="flex mt-0 justify-center">主題地圖模式</h6>
+</div>
+2. **色塊介面模式** — 利用高彩度色彩與放射狀層級結構，引導兒童以顏色辨識主題。  
+<div className="flex flex-col justify-center items-center">
+    <img src="/images/posts/child-library-colorc.png" className="m-0 p-0 w-[480px]" />
+    <h6 className="flex mt-0 justify-center">色塊介面模式</h6>
+</div>
+3. **動態節點介面模式** — 採用樹狀節點與群集動畫（Cluster Model），呈現知識關聯與層級。
+
+<div className="flex flex-col items-center">
+  <div className="flex justify-center gap-4">
+    <img
+      src="/images/posts/child-library-tree.png"
+      className="mt-auto p-0 w-[400px] h-[300px]"
+      alt="child-library-tree"
+    />
+    <img
+      src="/images/posts/child-library-treer.png"
+      className="m-0 p-0 w-[400px]"
+      alt="child-library-treer"
+    />
+  </div>
+  <h6 className="mt-2 text-center">樹狀書籍呈現</h6>
+</div>
+
+前端透過 **D3.js 的資料綁定與 transition 動畫** 實現節點展開效果，結合 **SVG 向量繪圖** 以提升互動流暢度與可擴充性。  
+實驗結果顯示，主題地圖模式在趣味性與搜尋效率上表現最佳，證實資訊視覺化能顯著降低兒童使用障礙，並提升網站重訪率。
+
+
+<div className="flex flex-col justify-center items-center">
+    <img src="/images/posts/child-library-float.png" className="m-0 p-0 w-[640px]" />
+    <h6 className="flex mt-0 justify-center">漂浮式書籍呈現</h6>
+</div>
+
+> 此研究展示了「資料視覺化 × 互動設計」在教育資訊系統中的實際潛力，也為未來結合 3D 介面與語音搜尋的兒童數位圖書館設計奠定基礎。
+
+### 🌐 Demo
+
+👉 <a href="https://storage.googleapis.com/aaixd/storybook/index/index.html" target="_blank" rel="noopener noreferrer">圓夢繪本視覺化網站</a>
+
+---
+
+## 📚 延伸閱讀（Further Reading）
+
+- [D3.js Official Documentation](https://d3js.org/) — 資料驅動文件（Data-Driven Documents）框架，支援 SVG、Canvas、動畫過渡與互動綁定。  
+- [Slim Framework](https://www.slimframework.com/) — PHP 的輕量級 RESTful API 框架。  
+- [Information Visualization in Education](https://dl.acm.org/doi/10.1145/2858036.2858282) — 關於視覺化學習系統的學術研究。  
+- [Designing for Children — Nielsen Norman Group](https://www.nngroup.com/articles/childrens-websites-usability-issues/) — 關於兒童使用者體驗（UX for Children）的設計準則。  
+- [兒童數位圖書館資訊視覺化網站設計─以圓夢繪本館為例](https://www.nlpi.edu.tw/FileDownLoad/LibraryPublication/20181130094130675065860.pdf) — 針對兒童數位圖書館、資訊尋求行為、網站介面資訊視覺化做探討。  
+
+---
+
+
+> ✍️ 作者註記：本文為「圓夢繪本館資訊視覺化介面設計」之技術摘要，著重於前後端實作與互動設計分析，非原論文之完整內容。

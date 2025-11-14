@@ -1,7 +1,10 @@
+//next.config.ts
 import type { NextConfig } from "next";
+import { withContentlayer } from "next-contentlayer";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  typedRoutes: true,
 };
 
-export default nextConfig;
+export default withContentlayer(nextConfig);
