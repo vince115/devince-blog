@@ -1,3 +1,4 @@
+// src/components/Pagination.tsx
 "use client";
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -8,6 +9,7 @@ interface PaginationProps {
     totalPages: number;
     className?: string;
     scrollToTop?: boolean; // 可選：換頁後是否自動滾回頂端
+    onPageChange?: (page: number) => void;
 }
 
 export default function Pagination({
@@ -15,6 +17,7 @@ export default function Pagination({
     totalPages,
     className = "",
     scrollToTop = true,
+    onPageChange,
 }: PaginationProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -23,9 +26,16 @@ export default function Pagination({
     const handleClick = (page: number) => {
         if (page < 1 || page > totalPages) return;
 
+        // ✅ 若外部有傳入 onPageChange，就用它（例如 ProjectsClient）
+        onPageChange?.(page);
+
         const params = new URLSearchParams(searchParams);
         params.set("page", String(page));
-        router.push(`${pathname}?${params.toString()}`);
+        //router.push(`${pathname}?${params.toString()}` as string);
+        router.push({
+            pathname,
+            query: Object.fromEntries(params.entries()),
+        } as any);
 
         if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
     };
