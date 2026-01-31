@@ -5,24 +5,21 @@ import { useState } from "react";
 import { MessageCircle, Heart, Bookmark } from "lucide-react";
 
 export default function PostActions({
-    initialLikes = 35,
-    initialComments = 3,
+    // 移除無用的假數據
 }: {
-    initialLikes?: number;
     initialComments?: number;
 }) {
     const [liked, setLiked] = useState(false);
-    const [likes, setLikes] = useState(initialLikes);
     const [saved, setSaved] = useState(false);
 
     const toggleLike = () => {
         setLiked(!liked);
-        setLikes((prev) => (liked ? prev - 1 : prev + 1));
+        // 本地暫態：可以加動畫或 toast，但這裡先純粹切換狀態
     };
 
     const toggleSave = () => setSaved(!saved);
 
-    // ✅ 新增：滾動到留言區
+    // ✅ 滾動到留言區
     const handleScrollToComments = () => {
         const commentsEl = document.getElementById("comments");
         if (commentsEl) {
@@ -42,6 +39,7 @@ export default function PostActions({
                         className={`group flex items-center space-x-1 transition ${
                             liked ? "text-rose-500" : "hover:text-rose-500"
                         }`}
+                        title={liked ? "取消喜歡" : "按個喜歡"}
                     >
                         <Heart
                             className={`w-6 h-6 transition-transform duration-200 ${
@@ -56,6 +54,7 @@ export default function PostActions({
                     <button
                         onClick={handleScrollToComments}
                         className="group flex items-center space-x-1 hover:text-blue-500 transition"
+                        title="跳至留言區"
                     >
                         <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
                     </button>
@@ -67,6 +66,7 @@ export default function PostActions({
                     className={`group flex items-center transition ${
                         saved ? "text-amber-500" : "hover:text-amber-500"
                     }`}
+                    title={saved ? "取消收藏" : "加入收藏"}
                 >
                     <Bookmark
                         className={`w-6 h-6 transition-transform duration-200 ${
@@ -76,12 +76,11 @@ export default function PostActions({
                         }`}
                     />
                 </button>
-
-                 {/* 上方統計 */}
             </div>
+
+             {/* ✅ 誠實的互動提示 */}
             <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                {likes} 個喜歡 
-                    {/* {likes} 個喜歡 · {initialComments} 則留言 */}
+                {liked ? "你覺得這篇文章有幫助 ❤️" : "覺得有幫助可以按個喜歡"}
             </div>
         </div>
     );

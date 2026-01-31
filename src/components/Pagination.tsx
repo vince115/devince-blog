@@ -31,11 +31,7 @@ export default function Pagination({
 
         const params = new URLSearchParams(searchParams);
         params.set("page", String(page));
-        //router.push(`${pathname}?${params.toString()}` as string);
-        router.push({
-            pathname,
-            query: Object.fromEntries(params.entries()),
-        } as any);
+        router.push(`${pathname}?${params.toString()}`);
 
         if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
     };
