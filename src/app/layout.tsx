@@ -4,10 +4,9 @@ import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
@@ -32,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-Hant" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 dark:bg-neutral-900/60 flex flex-col min-h-screen`}
+        className={`${inter.className} antialiased bg-gray-100 dark:bg-neutral-900/60 flex flex-col min-h-screen`}
       >
         <ThemeProvider
           attribute="class"
