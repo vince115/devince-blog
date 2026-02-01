@@ -93,16 +93,16 @@ export default makeSource({
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
             //rehypeRaw,
-            // [
-            //     rehypeShiki,
-            //     {
-            //         themes: {
-            //             light: "github-light",
-            //             dark: "one-dark-pro",
-            //         },
-            //         transformers: [transformerMetaHighlight()],
-            //     },
-            // ],
+            [
+                rehypeShiki,
+                {
+                    themes: {
+                        light: "github-light",
+                        dark: "one-dark-pro",
+                    },
+                    transformers: [transformerMetaHighlight()],
+                },
+            ],
             rehypeFixClassName, // ✅ 這行要放外面，獨立 plugin
         ],
     },
