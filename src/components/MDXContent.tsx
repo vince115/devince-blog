@@ -36,8 +36,9 @@ export default function MDXContent({
     raw?: string;
     className?: string;
 }) {
-    // ✅ Hook 一定要固定呼叫（不管 code 是否存在）
-    const Component = code ? useMDXComponent(code) : null;
+    // ✅ Hook 一定要固定呼叫，避免 conditional hook 錯誤
+    // 即使沒有 code，也要傳入空字串讓 Hook 執行，但後面我們會擋掉
+    const Component = useMDXComponent(code || "");
 
     if (!code) {
         // 沒有 MDX 的情況
