@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"contentlayer dev\" \"next dev --webpack\"",
-    "build": "contentlayer build && next build --webpack",
+    "dev": "concurrently \"contentlayer dev\" \"next dev\"",
+    "build": "(contentlayer build || true) && next build",
     "start": "next start",
     "lint": "eslint"
   },
