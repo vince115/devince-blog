@@ -1,9 +1,13 @@
 // src/app/page.tsx
 import Link from "next/link";
+import HeroBackgroundCanvas from "@/components/hero/HeroBackgroundCanvas";
 
 export default function HomePage() {
   return (
     <section className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
+      {/* Hero Background Canvas */}
+      <HeroBackgroundCanvas />
+
       {/* 標題 */}
       <h1 className="text-5xl font-extrabold mb-4 text-gray-900 dark:text-gray-100">
         👋 歡迎來到 <span className="text-blue-600 dark:text-blue-400">devinceBlog</span>
@@ -11,7 +15,7 @@ export default function HomePage() {
 
       {/* 副標 */}
       <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mb-8">
-        記錄 Vince 在前端、設計與 3D 技術學習旅程中的思考與筆記。
+        記錄 Vince 在前端/全端、設計與 AI 技術學習旅程中的思考與筆記。
       </p>
 
       {/* 導覽按鈕 */}
