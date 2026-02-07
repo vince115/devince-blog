@@ -1,0 +1,184 @@
+---
+title: "OpenClaw 本地端 AI Agent 架構與部署實作：以 Mac mini 為例"
+date: "2026-02-07T14:00:00.000Z"
+tags: ["AI Agent", "OpenClaw", "Node.js", "macOS", "Developer Tools"]
+description: "整理 OpenClaw 在 macOS（Apple Silicon）環境下的安裝流程與系統架構設定，透過實際部署與除錯經驗，釐清官方文件中隱含的操作前提與使用假設。"
+cover: "/images/posts/openclaw-mac-cover.png"  
+---
+<div className="flex flex-col justify-center items-center">
+    <img src="/images/posts/openclaw-mac-mini-cover.png" className="m-0 p-0 w-[1280px]" />
+    <h6 className="flex mt-0 justify-center"></h6>
+</div>
+
+## 安裝背景與研究範圍說明
+
+本篇內容聚焦於 **OpenClaw 在 macOS（Apple Silicon）環境下的實際安裝與啟用流程**，並非快速體驗或成功案例展示，而是基於多次失敗與修正後所整理之實務復盤紀錄。
+
+研究對象假設讀者具備基本開發經驗（如 Node.js、CLI 操作），但 **不預設讀者已熟悉 OpenClaw 官方文件的結構與使用邏輯**。實際測試顯示，官方文件多以 Reference 為導向，對初次接觸者而言，容易在初期階段即產生操作順序上的混淆。
+
+---
+
+## 系統環境與技術前提
+
+在進行 OpenClaw 安裝前，本研究所使用之實際環境如下：
+
+### 作業系統
+
+* macOS（Apple Silicon 架構）
+
+### 執行環境
+
+* **Node.js v22.x**
+
+  * OpenClaw 官方明確要求 Node 22 或以上版本
+  * 實測舊版 Node（20 以下）可能出現 Gateway 無法穩定啟動、Channel 行為異常等問題
+
+版本確認方式如下：
+
+```bash
+node --version
+```
+
+若版本未達 22，建議先完成升級再進行後續操作。本研究使用 `nvm` 管理 Node 版本。
+
+### 套件管理工具
+
+* pnpm（非必要）
+
+需特別說明的是，**OpenClaw 並不依附於任何前端專案框架**（如 Next.js、React）。其運作形式為 **獨立常駐服務（Gateway）**，與應用程式本身無直接相依關係，此為初期常見誤解之一。
+
+---
+
+## OpenClaw CLI 安裝流程
+
+官方所建議之安裝方式如下：
+
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
+安裝完成後，系統將取得：
+
+* `openclaw` CLI 指令
+* 預設設定目錄：`~/.openclaw`
+
+可透過以下指令確認安裝是否成功：
+
+```bash
+openclaw --version
+```
+
+若此階段未能正確回傳版本資訊，後續流程將無法正常進行，建議優先排除環境問題，而非直接重複安裝。
+
+---
+
+## Onboarding Wizard 與系統初始化
+
+完成 CLI 安裝後，OpenClaw 會引導使用者執行 Onboarding Wizard：
+
+```bash
+openclaw onboard --install-daemon
+```
+
+該流程主要負責初始化以下項目：
+
+* Gateway（核心服務）
+* 基本驗證設定（Auth）
+* 是否安裝為背景常駐 daemon
+* Channel（Telegram、Discord 等）之初步設定
+
+實務上，**並不建議於此階段即完成所有 Channel 設定**。研究過程顯示，過早整合外部通訊平台，反而會增加除錯難度。
+
+初期建議設定目標為：
+
+* 啟用 Gateway
+* 能正常開啟 Control UI
+* 確認 Agent 可於本地互動
+
+---
+
+## Gateway 狀態確認與除錯
+
+Gateway 是否成功啟動，為整體系統運作之關鍵。可透過以下指令確認狀態：
+
+```bash
+openclaw gateway status
+```
+
+正常情況下，應可觀察到類似以下資訊：
+
+* status: running
+* port: 18789
+
+若 Gateway 未處於 running 狀態，建議優先檢視 log 訊息：
+
+```bash
+openclaw logs --follow
+```
+
+實務經驗顯示，多數問題源自執行環境版本不符，而非設定檔錯誤。
+
+---
+
+## Control UI 啟用與驗證
+
+當 Gateway 正常運作後，可啟用 Control UI：
+
+```bash
+openclaw dashboard
+```
+
+或直接透過瀏覽器存取：
+
+```
+http://127.0.0.1:18789/
+```
+
+成功啟用之判斷標準包含：
+
+* Control UI 可正常載入
+* 可於介面中輸入訊息
+* Agent 能產生回應
+
+至此，OpenClaw 的核心功能已完成初步建置，約可視為完成整體安裝流程之七成。
+
+---
+
+## 常見問題歸納與分析
+
+### Node.js 版本不符
+
+常見現象包括：
+
+* CLI 可執行，但 Gateway 行為不穩定
+* Channel（如 Telegram）無回應
+
+解決方式為統一升級至 Node.js 22 以上版本。
+
+### 過早整合 Telegram Channel
+
+Telegram 應視為第二階段整合項目，建議在本地 Control UI 已穩定互動後，再行設定，以避免多重問題交錯。
+
+### 官方文件閱讀順序不明確
+
+官方文件性質偏向 Reference，較適合查詢特定功能。實務上較合理的閱讀順序為：
+
+1. First Steps / Getting Started
+2. Onboarding Wizard
+3. Dashboard
+4. Channels（Telegram 等）
+
+---
+
+## 結論與安裝流程總結
+
+若重新進行一次完整建置，實務上建議流程如下：
+
+1. 確認 Node.js v22+
+2. 安裝 OpenClaw CLI
+3. 執行 Onboarding Wizard
+4. 驗證 Gateway 狀態
+5. 啟用 Control UI 並完成一次成功互動
+6. 再行擴充 Channel、Agent 與模型設定
+
+OpenClaw 本身並非複雜系統，其主要門檻來自於 **文件預設使用者已具備足夠上下文知識**。本篇紀錄即為補齊該落差之實務整理。

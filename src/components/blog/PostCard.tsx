@@ -59,7 +59,7 @@ export default function PostCard({ post }: { post: Post }) {
             {/* 右邊：封面縮圖（固定寬度） */}
             {post.cover && (
                 <div
-                    className="relative w-48 h-full flex-shrink-0 border rounded-r-2xl overflow-hidden shadow-sm"
+                    className="relative w-48 h-full flex-shrink-0 border border-zinc-300/50 dark:border-zinc-800  rounded-r-2xl overflow-hidden shadow-sm"
                 >
                     <Image
                         src={post.cover}
