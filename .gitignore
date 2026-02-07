@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# contentlayer generated files
+.contentlayer/
+
 # next.js
 /.next/
 /out/

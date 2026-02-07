@@ -11,6 +11,8 @@ import {
     Instagram,
     Rss,
     PenLine,
+    Pin,
+    Shell,
 } from "lucide-react";
 
 const icons = [
@@ -22,6 +24,8 @@ const icons = [
     { href: site.links.x, label: "X", Icon: XIcon },
     { href: site.links.instagram, label: "Instagram", Icon: Instagram },
     { href: site.links.medium, label: "Medium", Icon: PenLine },
+    { href: site.links.pinterest, label: "Pinterest", Icon: Pin },
+    { href: site.links.gumroad, label: "Gumroad", Icon: Shell },
     // { href: "/rss.xml", label: "RSS", Icon: Rss },
 ];
 
