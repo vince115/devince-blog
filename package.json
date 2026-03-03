@@ -16,7 +16,7 @@
     "@vercel/kv": "^3.0.0",
     "contentlayer": "^0.3.4",
     "lucide-react": "^0.300.0",
-    "next": "14.2.3",
+    "next": "14.2.35",
     "next-contentlayer": "^0.3.4",
     "next-themes": "^0.3.0",
     "react": "18.3.1",
