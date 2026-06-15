@@ -48,8 +48,17 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-    const posts = await getAllPosts();
-    return posts.map((p) => ({ slug: p.slug }));
+    if (!process.env.DATABASE_URL) {
+        console.warn("DATABASE_URL is not set. Skipping generateStaticParams during build.");
+        return [];
+    }
+    try {
+        const posts = await getAllPosts();
+        return posts.map((p) => ({ slug: p.slug }));
+    } catch (error) {
+        console.error("Failed to fetch posts in generateStaticParams:", error);
+        return [];
+    }
 }
 
 export default async function BlogPost({

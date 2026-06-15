@@ -7,8 +7,17 @@ import type { Media } from "@/payload-types";
 
 // 預先生成所有專案路由
 export const generateStaticParams = async () => {
-    const projects = await getAllProjects();
-    return projects.map((p) => ({ slug: p.slug }));
+    if (!process.env.DATABASE_URL) {
+        console.warn("DATABASE_URL is not set. Skipping generateStaticParams during build.");
+        return [];
+    }
+    try {
+        const projects = await getAllProjects();
+        return projects.map((p) => ({ slug: p.slug }));
+    } catch (error) {
+        console.error("Failed to fetch projects in generateStaticParams:", error);
+        return [];
+    }
 };
 
 export default async function ProjectPage({
