@@ -27,8 +27,8 @@
       "@/*": [
         "./src/*"
       ],
-      "contentlayer/generated": [
-        "./.contentlayer/generated"
+      "@payload-config": [
+        "./src/payload.config.ts"
       ]
     },
     "types": [

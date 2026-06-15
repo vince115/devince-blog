@@ -1,0 +1,90 @@
+/* src/app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- 全域色彩變數 --- */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* --- 全域主題樣式 --- */
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.dark * {
+  color-scheme: dark;
+}
+
+html:not(.dark) * {
+  color-scheme: light;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+@layer components {
+  /* 讓 Markdown 內容 (prose) 具有更高階的排版感 */
+  .prose {
+    @apply max-w-none text-gray-800 dark:text-gray-200;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .prose p {
+    @apply mb-8; /* 增加段落間距 */
+  }
+
+  .prose h1, .prose h2, .prose h3 {
+    @apply text-gray-900 dark:text-white;
+  }
+  
+  .prose pre {
+    @apply rounded-xl border border-zinc-200 dark:border-zinc-800 my-8 shadow-sm overflow-x-auto p-4;
+    background-color: #f2f2f2 !important;
+    color: var(--shiki-light) !important;
+  }
+
+  .dark .prose pre {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+  }
+
+  .prose pre code {
+    @apply text-[14px] leading-[1.6] px-0;
+    font-family: var(--font-mono, ui-monospace, monospace);
+  }
+
+  .prose pre span {
+    color: var(--shiki-light);
+  }
+  .dark .prose pre span {
+    color: var(--shiki-dark);
+  }
+
+  /* 針對行內程式碼 (Inline Code) 的樣式 */
+  .prose :not(pre) > code {
+    @apply bg-zinc-100 dark:bg-zinc-800 text-pink-600 dark:text-pink-400 px-1.5 py-0.5 rounded text-[0.9em] font-medium;
+    @apply border border-zinc-200 dark:border-zinc-700;
+  }
+}
+
+/* --- Tailwind Typography 標題與引言 --- */
+.prose h1 { @apply text-4xl font-bold text-blue-700 dark:text-blue-400 mb-8; }
+.prose h2 { @apply text-2xl font-semibold text-teal-600 dark:text-teal-400 mt-12 mb-6; }
+.prose h3 { @apply text-xl font-semibold text-zinc-800 dark:text-zinc-200 mt-8 mb-4; }
+
+.prose blockquote {
+  @apply border-l-4 border-blue-400 pl-4 italic text-gray-600 dark:text-gray-300 bg-blue-50 dark:bg-blue-500/10 py-2;
+}

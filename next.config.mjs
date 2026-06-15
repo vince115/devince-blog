@@ -1,4 +1,4 @@
-import { withContentlayer } from "next-contentlayer";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,6 +9,17 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
-export default withContentlayer(nextConfig);
+export default withPayload(nextConfig, {
+  configPath: "./src/payload.config.ts",
+});

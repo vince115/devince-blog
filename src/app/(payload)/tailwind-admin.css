@@ -1,0 +1,292 @@
+/* Tailwind for Payload Admin custom components */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 💎 Navbar (Header) 高階玻璃擬物化 (Glassmorphism) 樣式 */
+.app-header {
+  @apply fixed top-0 left-0 right-0 z-[100] backdrop-blur-xl bg-white/70 dark:bg-[#0a0a0a]/70 !important;
+  width: 100% !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+  transition: all 0.3s ease;
+}
+
+/* Payload 預設的背景層會覆蓋我們的透明度，所以要將其隱藏 */
+.app-header__bg {
+  display: none !important;
+}
+
+html[data-theme="dark"] .app-header {
+  background-color: rgba(10, 10, 10, 0.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 麵包屑導覽 (Breadcrumbs) - 讓字體更現代 */
+.step-nav, .app-header__step-nav {
+  @apply font-medium tracking-wide text-sm !important;
+  padding-left: 48px !important; /* 留給左側 Navbar Toggle 按鈕空間 */
+}
+
+.step-nav a {
+  @apply text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400 transition-colors duration-200 !important;
+}
+
+.step-nav span {
+  @apply text-gray-800 dark:text-gray-200 !important;
+}
+
+/* Navbar 右側的帳戶選單區塊 (調整為完美圓形貼合) */
+.app-header__account {
+  @apply bg-gray-100/80 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors duration-200 rounded-full p-1.5 flex items-center justify-center !important;
+  border: 1px solid transparent;
+}
+
+html[data-theme="dark"] .app-header__account:hover {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 💎 Left Menu (Sidebar/Nav) 樣式 */
+.nav {
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+  @apply bg-white dark:bg-[#0a0a0a] !important;
+  
+  /* 改用 padding 將內容往下推，讓外框線 (border-right) 能夠延伸到最上方跟 Navbar 接合 */
+  padding-top: 64px !important;
+  margin-top: 0 !important;
+  height: 100vh !important;
+  z-index: 90 !important;
+}
+
+html[data-theme="dark"] .nav {
+  background-color: #0a0a0a !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 減少 Left Menu 內部的頂部空白 (把原本給 Logo 或滾動區的留白取消) */
+.nav__scroll, .nav-group:first-of-type, .nav > div {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.nav header {
+  display: none !important; /* 隱藏原本的預設 Logo 區塊，節省空間 */
+}
+
+/* 將主要的內容區域往下推，避免被 Header 遮住 */
+.template-default__wrap {
+  padding-top: 64px !important;
+}
+
+/* 將原本在側邊欄裡的「收合按鈕」(<) 拉出來，固定在 Navbar 左上方 */
+.nav-toggler {
+  position: fixed !important;
+  top: 14px !important;
+  left: 16px !important;
+  z-index: 105 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* 💎 Pagination (分頁) 修復與 UI 美化 */
+.paginator {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important; /* 增加按鈕間距 */
+}
+
+/* 修正 Payload 預設的箭頭錯位 bug (< > 1 2 變成 < 1 2 >) */
+.paginator .clickable-arrow--left { order: 1 !important; }
+.paginator .paginator__page, 
+.paginator .paginator__separator { order: 2 !important; margin: 0 !important; }
+.paginator .clickable-arrow--right { order: 3 !important; }
+
+/* 按鈕高階質感美化 */
+.paginator .paginator__page,
+.paginator button[class*="clickable-arrow"] {
+  @apply flex items-center justify-center w-8 h-8 rounded-lg text-sm font-medium transition-all duration-200 bg-white text-gray-600 border border-gray-200 dark:bg-white/5 dark:text-gray-300 dark:border-white/10 hover:bg-teal-50 hover:text-teal-600 hover:border-teal-200 dark:hover:bg-teal-900/30 dark:hover:text-teal-400 dark:hover:border-teal-700/50 shadow-sm hover:shadow !important;
+}
+
+/* 當前頁面 active 狀態 */
+.paginator .paginator__page--is-current {
+  @apply bg-teal-600 text-white border-teal-600 dark:bg-teal-500 dark:border-teal-500 hover:bg-teal-700 dark:hover:bg-teal-400 hover:text-white shadow-md !important;
+}
+
+/* 分隔符號 ... */
+.paginator .paginator__separator {
+  @apply text-gray-400 dark:text-gray-500 px-1 font-bold !important;
+}
+/* 💎 Page Controls (分頁數量資訊 & 每頁筆數) 修復與 UI 美化 */
+.page-controls {
+  @apply flex items-center justify-end gap-5 text-sm text-gray-500 dark:text-gray-400 mt-2 !important;
+}
+
+/* "1-10 of 13" 資訊文字 */
+.page-controls__page-info {
+  @apply font-medium tracking-wide bg-gray-50/80 dark:bg-white/5 px-3 py-1.5 rounded-lg border border-transparent dark:border-white/5 shadow-sm !important;
+}
+
+/* "Per Page: 10" 下拉選單按鈕 */
+.per-page {
+  @apply flex items-center gap-2 font-medium !important;
+}
+
+/* 針對 Per Page 裡面的 Popup 按鈕 */
+.per-page button.popup-button,
+.per-page button.popup__button,
+.per-page > button {
+  @apply flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white text-gray-700 border border-gray-200 shadow-sm transition-all duration-200 dark:bg-white/5 dark:text-gray-200 dark:border-white/10 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 dark:hover:bg-white/10 !important;
+}
+/* 💎 List Controls (搜尋與過濾區塊) 簡約風格 */
+.list-controls {
+  @apply bg-transparent border-b border-gray-200 dark:border-white/10 mb-6 !important;
+  padding: 0 !important; 
+}
+
+/* 💎 Data Table (資料列表) 質感升級 */
+.table {
+  @apply rounded-sm overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm bg-white dark:bg-[#121212] !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+/* 表格標題列 (Thead) */
+.table thead th {
+  @apply bg-gray-50/80 dark:bg-[#1a1a1a] text-gray-700 dark:text-gray-300 font-bold tracking-wider uppercase text-xs px-6 py-4 border-b border-gray-200 dark:border-white/10 !important;
+}
+
+/* 表格內容列 (Tbody Rows) */
+.table tbody tr {
+  @apply bg-white dark:bg-[#121212] transition-colors duration-200 border-b border-gray-100 dark:border-white/5 hover:bg-teal-50/60 dark:hover:bg-teal-900/20 !important;
+}
+
+.table tbody tr:nth-child(even) {
+  @apply bg-gray-50/30 dark:bg-[#161616] !important;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none !important;
+}
+
+/* 表格儲存格 (Td) */
+.table tbody td {
+  @apply bg-transparent px-6 py-4 text-sm text-gray-800 dark:text-gray-200 !important;
+}
+
+/* 💎 核心按鈕 (Primary / Secondary Buttons) 升級 */
+.btn {
+  @apply inline-flex items-center justify-center px-5 py-2 text-sm font-medium transition-all duration-200 !important;
+}
+
+.btn--style-primary {
+  @apply bg-teal-600 text-white border-transparent shadow-md hover:bg-teal-700 hover:shadow-lg hover:-translate-y-0.5 dark:bg-teal-500 dark:hover:bg-teal-400 rounded-lg transition-all duration-300 font-medium tracking-wide !important;
+}
+
+.btn--style-secondary {
+  @apply bg-white text-gray-700 border border-gray-200 shadow-sm hover:bg-gray-50 hover:border-gray-300 dark:bg-white/5 dark:text-gray-200 dark:border-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-medium tracking-wide !important;
+}
+
+/* 💎 Radio Input (單選按鈕) 圓點置中修復 */
+.radio-input__styled-radio {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.radio-input__styled-radio::before {
+  /* 覆寫 Payload 原本依賴 border-box 的寫法，改用絕對尺寸加上 Flex 置中 */
+  width: 50% !important;
+  height: 50% !important;
+  border: none !important;
+  background-color: var(--theme-elevation-800) !important;
+}
+
+/* 💎 頁面佈局重構: 放大標題、將按鈕與 Search 列並排 */
+.collection-list__wrap {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  row-gap: 1.25rem !important;
+  column-gap: 1.5rem !important;
+}
+
+/* 讓所有未指定順序的元素排在最下面，並佔滿 100% 寬度 */
+.collection-list__wrap > * {
+  flex: 0 0 100% !important;
+  order: 10 !important;
+}
+
+/* 解除 Payload V3 預設的層層包裹，讓裡面的元素變成直接的 Flex children */
+.list-header,
+.list-header__content,
+.list-header__title-and-actions {
+  display: contents !important;
+}
+
+/* 1. 大標題 "Posts / Media" 獨佔第一排 */
+.list-header h1 {
+  flex: 0 0 100% !important;
+  order: 1 !important;
+  font-size: 2.25rem !important; 
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  margin: 0 !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* 2. 操作按鈕 (Create New, Bulk Upload) 排在第二排的最左邊 */
+.list-header__title-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  flex: 0 0 auto !important;
+  order: 2 !important;
+}
+
+/* 美化裡面的按鈕，把它們變成真正的按鈕外觀 */
+.list-header__title-actions .btn {
+  margin: 0 !important;
+  padding: 0.5rem 1rem !important;
+  @apply bg-white text-gray-700 border border-gray-200 shadow-sm hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 dark:bg-white/5 dark:text-gray-200 dark:border-white/10 dark:hover:bg-teal-900/30 dark:hover:text-teal-400 rounded-lg transition-all duration-300 font-medium !important;
+}
+
+/* 將第一個按鈕 (通常是 Create New) 設為主色系凸顯重點 */
+.list-header__title-actions .btn:first-child {
+  @apply bg-teal-600 text-white border-transparent shadow-md hover:bg-teal-700 hover:text-white dark:bg-teal-500 dark:hover:bg-teal-400 !important;
+}
+
+/* 3. Search 搜尋列與過濾區塊佔滿第二排剩下的寬度 */
+.collection-list__wrap > .list-controls {
+  flex: 1 1 0% !important;
+  margin: 0 !important; 
+  order: 3 !important;
+}
+
+/* 4. 其他可能的 Header 按鈕 (例如 Tabs 等等) 可以排在搜尋列之後或獨立一行 */
+.list-header__actions {
+  flex: 0 0 auto !important;
+  order: 4 !important;
+}
+
+/* 💎 Array / Blocks 欄位 UI 修正 */
+/* 修正 Tailwind Reset 導致 "Toggle row" 隱藏文字跑出來與標題重疊的問題 */
+.collapsible__toggle {
+  color: transparent !important;
+}
+.collapsible__toggle span {
+  opacity: 0 !important;
+  color: transparent !important;
+}
+
+/* 修正 "Collapse All" 與 "Show All" 等操作按鈕黏在一起的問題 */
+.array-field__header-actions,
+.blocks-field__header-actions,
+.array-field__header ul,
+.blocks-field__header ul {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}

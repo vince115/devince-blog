@@ -1,15 +1,13 @@
-import { allPosts } from '@/../.contentlayer/generated';
+import { getAllPosts } from "@/lib/payload-client";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  // ⚠️ 請修改為您的實際網域
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
-  const siteTitle = 'devince-blog';
-  const siteDescription = 'Vince 的技術筆記';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+  const siteTitle = "devince-blog";
+  const siteDescription = "Vince 的技術筆記";
 
-  // 按日期降序排列
-  const posts = [...allPosts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const posts = await getAllPosts();
 
   // 手動組裝 XML，避免引入新依賴
   // 使用 CDATA 確保特殊字元不會破壞 XML 結構
@@ -20,8 +18,8 @@ export async function GET() {
       <title><![CDATA[${post.title}]]></title>
       <link>${baseUrl}/blog/${post.slug}</link>
       <guid>${baseUrl}/blog/${post.slug}</guid>
-      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
-      <description><![CDATA[${post.description || ''}]]></description>
+      <pubDate>${new Date(post.date ?? "").toUTCString()}</pubDate>
+      <description><![CDATA[${post.description || ""}]]></description>
     </item>`;
     })
     .join('');

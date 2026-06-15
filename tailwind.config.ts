@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography"; // ✅ 用 ESM 匯入
 
 const config: Config = {
-    darkMode: 'class',
+    darkMode: ['class', ':is(.dark, [data-theme="dark"])'],
     content: [
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
         "./content/**/*.{md,mdx}",
