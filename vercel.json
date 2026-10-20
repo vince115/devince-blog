@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://vince115-blog.vercel.app/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://vince115-blog.vercel.app/:path*",
       "permanent": true
