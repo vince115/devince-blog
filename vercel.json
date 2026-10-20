@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://vince115-blog.vercel.app/:path*",
+      "permanent": true
+    }
+  ]
+}
